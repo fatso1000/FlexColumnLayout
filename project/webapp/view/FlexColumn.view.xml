@@ -1,0 +1,28 @@
+<mvc:View
+	xmlns:f="sap.f"
+	controllerName="com.proy.project.controller.FlexColumn"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	displayBlock="true"
+>
+	<App id="app">
+		<Page>
+			<customHeader>
+				<f:ShellBar
+					title="Application Title"
+					showNavButton="{= ${appView>/layout} === 'TwoColumnsMidExpanded'}"
+					navButtonPressed="handleBackButtonPressed"
+				>
+					<f:profile>
+						<Avatar initials="UI"/>
+					</f:profile>
+				</f:ShellBar>
+			</customHeader>
+			<f:FlexibleColumnLayout
+				id="fcl"
+				layout="{appView>/layout}"
+				backgroundDesign="Solid"
+			/>
+		</Page>
+	</App>
+</mvc:View>

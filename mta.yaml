@@ -1,0 +1,92 @@
+_schema-version: "3.2"
+ID: flexibleColumnEjercicio
+version: 0.0.1
+modules:
+- name: flexibleColumnEjercicio-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: flexibleColumnEjercicio-destination-service
+    parameters:
+      content-target: true
+  - name: flexibleColumnEjercicio_html_repo_host
+    parameters:
+      service-key:
+        name: flexibleColumnEjercicio_html_repo_host-key
+  - name: uaa_flexibleColumnEjercicio
+    parameters:
+      service-key:
+        name: uaa_flexibleColumnEjercicio-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: com_proy_flexibleColumnEjercicio_html_repo_host
+          ServiceInstanceName: flexibleColumnEjercicio-html5-app-host-service
+          ServiceKeyName: flexibleColumnEjercicio_html_repo_host-key
+          sap.cloud.service: com.proy
+        - Authentication: OAuth2UserTokenExchange
+          Name: com_proy_uaa_flexibleColumnEjercicio
+          ServiceInstanceName: flexibleColumnEjercicio-xsuaa-service
+          ServiceKeyName: uaa_flexibleColumnEjercicio-key
+          sap.cloud.service: com.proy
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: flexibleColumnEjercicio-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: flexibleColumnEjercicio_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - comproyproject.zip
+      name: comproyproject
+      target-path: resources/
+- name: comproyproject
+  type: html5
+  path: project
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: flexibleColumnEjercicio-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: flexibleColumnEjercicio-destination-service
+    service-plan: lite
+- name: flexibleColumnEjercicio_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: flexibleColumnEjercicio-html5-app-host-service
+    service-plan: app-host
+- name: uaa_flexibleColumnEjercicio
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: flexibleColumnEjercicio-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo

@@ -1,0 +1,115 @@
+<mvc:View
+	controllerName="com.proy.project.controller.Detail"
+	xmlns="sap.uxap"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:m="sap.m"
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form"
+	displayBlock="true"
+	height="100%"
+	busyIndicatorDelay="0"
+>
+	<ObjectPageLayout
+		id="ObjectPageLayout"
+		showTitleInHeaderContent="true"
+		isChildPage="true"
+		upperCaseAnchorBar="false"
+	>
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+				<expandedHeading>
+					<m:Title
+						text="{order>/OrderID}"
+						wrapping="true"
+						class="sapUiSmallMarginEnd"
+					/>
+				</expandedHeading>
+				<snappedHeading>
+					<m:FlexBox
+						wrap="Wrap"
+						fitContainer="true"
+						alignItems="Center"
+					>
+						<m:FlexBox
+							fitContainer="true"
+							alignItems="Center"
+							class="sapUiTinyMarginEnd"
+						>
+							<m:Avatar
+								src="https://picsum.photos/80"
+								displayShape="Square"
+							/>
+							<m:Title
+								text="{order>OrderID}"
+								wrapping="true"
+								class="sapUiTinyMarginEnd"
+							/>
+						</m:FlexBox>
+					</m:FlexBox>
+				</snappedHeading>
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+		<headerContent>
+			<m:FlexBox
+				wrap="Wrap"
+				fitContainer="true"
+			>
+				<m:Avatar
+					src="https://picsum.photos/80"
+					displaySize="L"
+					displayShape="Square"
+					class="sapUiTinyMarginEnd"
+				/>
+				<m:VBox
+					justifyContent="Center"
+					class="sapUiSmallMarginEnd"
+				>
+					<m:Label text="{i18n>QUANTITY}"/>
+					<m:ObjectNumber
+						number="{order>/Quantity}"
+						emphasized="false"
+					/>
+				</m:VBox>
+				<m:VBox
+					justifyContent="Center"
+					class="sapUiSmallMarginEnd"
+				>
+					<m:Label text="{i18n>PRICE}"/>
+					<m:ObjectNumber
+						number="{
+							path: 'order>/UnitPrice',
+							formatter: '.Formatter.price'
+						}"
+						emphasized="false"
+					/>
+				</m:VBox>
+			</m:FlexBox>
+		</headerContent>
+		<sections>
+			<ObjectPageSection title="{i18n>ORDER_DETAILS}">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<form:SimpleForm
+								editable="false"
+								layout="ResponsiveGridLayout"
+								labelSpanL="12"
+								labelSpanM="12"
+								columnsL="1"
+							>
+								<form:content>
+									<m:Label text="{i18n>PRODUCT_ID}"/>
+									<m:Text text="{order>/ProductID}"/>
+									<m:Label text="{i18n>ORDER_ID}"/>
+									<m:Text text="{order>/OrderID}"/>
+									<m:Label text="{i18n>QUANTITY}"/>
+									<m:Text text="{order>/Quantity}"/>
+								</form:content>
+							</form:SimpleForm>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+	</ObjectPageLayout>
+</mvc:View>

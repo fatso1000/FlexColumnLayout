@@ -1,0 +1,139 @@
+<mvc:View
+	controllerName="com.proy.project.controller.List"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true"
+	height="100%"
+	busyIndicatorDelay="0"
+	xmlns:core="sap.ui.core"
+>
+	<f:DynamicPage
+		id="dynamicPageId"
+		toggleHeaderOnTitleClick="false"
+	>
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<!-- <Title text="Products ({products>/ProductCollectionStats/Counts/Total})"/> -->
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<!-- DynamicPage Content -->
+		<f:content>
+			<Table
+				itemPress="onListItemPress"
+				id="idTableItems"
+				items="{
+					path: 'orderDetails>/results',
+					sorter: {
+						path: 'ProductID'
+					}
+				}"
+			>
+				<headerToolbar>
+					<OverflowToolbar>
+						<Title
+							text="{i18n>ORDER_DETAILS}"
+							level="H2"
+						/>
+						<ToolbarSpacer/>
+						<ComboBox
+							id="comboBoxOrderID"
+							selectedKey="{/selectedKeyOrderId}"
+							showSecondaryValues="true"
+							selectionChange="onComboBoxSelectionChange"
+							placeholder="{i18n>ORDER_ID}"
+							items="{
+								path: 'filterData>/OrderDetails',
+								sorter: {
+									path: 'OrderID'
+								}
+							}"
+						>
+							<core:ListItem
+								key="{filterData>OrderID}"
+								text="{filterData>OrderID}"
+							/>
+						</ComboBox>
+						<ComboBox
+							id="comboBoxProductID"
+							showSecondaryValues="true"
+							selectedKey="{/selectedKeyProductId}"
+							selectionChange="onComboBoxSelectionChange"
+							placeholder="{i18n>PRODUCT_ID}"
+							items="{
+								path: 'filterData>/OrderDetails',
+								sorter: {
+									path: 'ProductID'
+								}
+							}"
+						>
+							<core:ListItem
+								key="{filterData>ProductID}"
+								text="{filterData>ProductID}"
+							/>
+						</ComboBox>
+						<Button
+							text="{i18n>SEARCH}"
+							press="handleSearch"
+						/>
+						<Button
+							text="Clear"
+							press="clearFilters"
+						/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="12em">
+						<Text text="{i18n>ORDER_ID}"/>
+					</Column>
+					<Column width="12em">
+						<Text text="{i18n>PRODUCT_ID}"/>
+					</Column>
+					<Column width="12em">
+						<Text text="{i18n>PRICE}"/>
+					</Column>
+					<Column width="12em">
+						<Text text="{i18n>DISCOUNT}"/>
+					</Column>
+					<Column width="12em">
+						<Text text="{i18n>QUANTITY}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem
+						vAlign="Middle"
+						type="Active"
+					>
+						<cells>
+							<ObjectIdentifier text="{orderDetails>OrderID}"/>
+							<Text text="{orderDetails>ProductID}"/>
+							<Text text="{
+								path: 'orderDetails>UnitPrice',
+								formatter: '.Formatter.price'
+							}"/>
+							<Text text="{orderDetails>Discount}"/>
+							<Text text="{orderDetails>Quantity}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+		<!-- DynamicPage Footer -->
+		<f:footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button
+					type="Accept"
+					text="Accept"
+				/>
+				<Button
+					type="Reject"
+					text="Reject"
+				/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

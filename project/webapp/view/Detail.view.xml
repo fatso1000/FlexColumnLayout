@@ -110,6 +110,34 @@
 					</ObjectPageSubSection>
 				</subSections>
 			</ObjectPageSection>
+			<ObjectPageSection title="{i18n>PRODUCT_DETAILS}">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<form:SimpleForm
+								editable="false"
+								layout="ResponsiveGridLayout"
+								labelSpanL="12"
+								labelSpanM="12"
+								columnsL="1"
+							>
+								<form:content>
+									<m:Label text="{i18n>PRODUCT_ID}"/>
+									<m:Text text="{orderProduct>/ProductID}"/>
+									<m:Label text="{i18n>PRODUCT_NAME}"/>
+									<m:Text text="{orderProduct>/ProductName}"/>
+									<m:Label text="{i18n>QUANTITY_PER_UNIT}"/>
+									<m:Text text="{orderProduct>/QuantityPerUnit}"/>
+									<m:Label text="{i18n>UNITS_ON_ORDER}"/>
+									<m:Text text="{orderProduct>/UnitsOnOrder}"/>
+									<m:Label text="{i18n>PRICE}"/>
+									<m:Text text="{orderProduct>/UnitPrice}"/>
+								</form:content>
+							</form:SimpleForm>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
 		</sections>
 	</ObjectPageLayout>
 </mvc:View>

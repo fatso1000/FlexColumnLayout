@@ -39,6 +39,29 @@ sap.ui.define(
         const oRouter = UIComponent.getRouterFor(instance);
         oRouter.navTo(routeName, values);
       },
+      cutStringAtWordStart: function (inputString, wordToMatch) {
+        // Create a regular expression to match the word at the end
+        var regex = new RegExp("\\b\\w*" + wordToMatch + "\\b");
+
+        // Use the regular expression to find the word
+        var match = regex.exec(inputString);
+
+        if (match) {
+          // Extract the matched word
+          var matchedWord = match[0];
+
+          // Find the index of the matched word in the input string
+          var index = inputString.indexOf(matchedWord);
+
+          // Cut the string after the matched word
+          var cutString = inputString.substring(index + matchedWord.length);
+
+          return cutString;
+        } else {
+          // If the word is not found, return the original string
+          return inputString;
+        }
+      },
     };
   }
 );

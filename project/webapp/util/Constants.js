@@ -10,6 +10,7 @@ sap.ui.define([], function () {
     models: {
       filterData: "filterData",
       orderDetails: "orderDetails",
+      orderProduct: "orderProduct",
       appView: "appView",
       order: "order",
     },

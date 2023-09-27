@@ -77,26 +77,6 @@ sap.ui.define(
       _onError: function (error) {
         console.error(error);
       },
-      /**
-       * Returns an instance of the semantic helper
-       * @returns {sap.f.FlexibleColumnLayoutSemanticHelper} An instance of the semantic helper
-       */
-      // getHelper: function () {
-      //   const oFCL = this.getRootControl().byId("fcl"),
-      //     oParams = UriParameters.fromQuery(location.search),
-      //     oSettings = {
-      //       defaultTwoColumnLayoutType: LayoutType.TwoColumnsMidExpanded,
-      //       defaultThreeColumnLayoutType: LayoutType.ThreeColumnsMidExpanded,
-      //       mode: oParams.get("mode"),
-      //       initialColumnsCount: oParams.get("initial"),
-      //       maxColumnsCount: oParams.get("max"),
-      //     };
-
-      //   return FlexibleColumnLayoutSemanticHelper.getInstanceFor(
-      //     oFCL,
-      //     oSettings
-      //   );
-      // },
     });
   }
 );
